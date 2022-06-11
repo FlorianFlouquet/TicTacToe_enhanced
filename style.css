@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gamemode-selection {
+    display: block;
+    width: 500px;
+    text-align: center;
+}
+
+.gamemode-selection > h2 {
+    margin-bottom: 50px;
+    font-size: 2rem;
+}
+
+.gamemode-selection > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.gamemode-selection > div > button {
+    height: 60px;
+    width: 200px;
+    font-size: 1.1rem;
+    text-transform: capitalize;
+}
+
+.gameboard {
+    display: none;
+}
