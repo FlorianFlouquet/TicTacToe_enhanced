@@ -11,8 +11,12 @@ body {
     align-items: center;
 }
 
+        /*///////////////////////////
+                GAMEMODE MENU
+        //////////////////////////*/
+
 .gamemode-selection {
-    display: block;
+    display: none;
     width: 500px;
     text-align: center;
 }
@@ -22,19 +26,81 @@ body {
     font-size: 2rem;
 }
 
-.gamemode-selection > div {
+.gamemode-button-placeholder {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.gamemode-selection > div > button {
+.gamemode-button-placeholder > button {
     height: 60px;
     width: 200px;
     font-size: 1.1rem;
     text-transform: capitalize;
 }
 
-.gameboard {
-    display: none;
+        /*///////////////////////////
+                GAMEBOARD
+        //////////////////////////*/
+.gamemode-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.gameboard {
+    width: 750px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.scoreboard {
+    text-align: center;
+}
+
+.scoreboard > h2:hover span {
+    opacity: 1;
+}
+
+.scoreboard > h2 {
+    font-size: 2rem;
+}
+
+.scoreboard > h2 > span {
+    padding-left: 10px;
+    opacity: 0.2;
+    transition: opacity 0.5s ease;
+}
+
+.scoreboard > h2 > span > img {
+    height: 15px;
+}
+
+.scoreboard > h3 {
+    font-size: 3.5rem;
+}
+
+.grid {
+    height:360px;
+    width: 360px;
+}
+
+.line {
+    display: flex;
+}
+
+.cell {
+    height: 120px;
+    width: 120px;
+    border: 1px solid black;
+}
+
+.gameboard-button-placeholder {
+    width: 40%;
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+

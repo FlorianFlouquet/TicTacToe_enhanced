@@ -10,16 +10,34 @@
 <body>
     <section class="gamemode-selection">
         <h2>Veuillez choisir un mode de jeu</h2>
-        <div id="buttonPlaceholder">
+        <div class="gamemode-button-placeholder">
             <button>1 joueur</button>
             <button>2 joueurs</button>
         </div>
     </section>
-    <section class="gameboard">
-        <h1>MODE 1 JOUEUR</h1>
+
+    <!-- MODE 1 JOUEUR -->
+    <section class="gameboard" style="display: none;">
+        <h1>Mode 1 Joueur</h1>
     </section>
-    <section class="gameboard">
-        <h1>MODE 2 JOUEURS</h1>
+
+    <!-- MODE 2 JOUEURS -->
+    <section class="gamemode-board">
+        <div class="gameboard">
+            <div class="scoreboard">
+                <h2>Joueur 1<span><img src="./asset/edit.png" alt=""></span></h2>
+                <h3>0</h3>
+            </div>
+            <div class="grid"></div>
+            <div class="scoreboard">
+                <h2>Joueur 2<span><img src="./asset/edit.png" alt=""></span></h2>
+                <h3>0</h3>
+            </div>
+        </div>
+        <div class="gameboard-button-placeholder">
+            <button>Selection le mode de jeu</button>
+            <button>Réinitialiser les scores</button>
+        </div>
     </section>
     <script src="./script.js"></script>
 </body>
