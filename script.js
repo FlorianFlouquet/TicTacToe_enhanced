@@ -9,11 +9,28 @@ const grid = document.querySelector('.grid');
 const scores = document.querySelectorAll('.scoreboard > h3');
 
 // Variables
+
 let scoreJoueur1 = 0;
 let scoreJoueur2 = 0;
+let symbol = "X";
 
 // Fonctions 
 
+const cellGotClicked = (div) => {
+    div.textContent = symbol;
+    div.classList.add("cell-clicked");
+    if (symbol == "X") {
+        symbol = "O";
+    }
+    else {
+        symbol = "X";
+    }
+}
+
+/**
+ * Permet aux utilisateurs de changer leurs pseudos
+ * @param {*} span 
+ */
 const changeUsername = (span) => {
     let newPseudo = prompt('Entrez votre pseudo');
     span.parentNode.textContent = newPseudo;
@@ -36,6 +53,12 @@ const generateGrid = () => {
         for (let j = 0; j < 3; j++) {
             const cellule = document.createElement('div');
             cellule.className = "cell";
+            cellule.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                console.log(event);
+                cellGotClicked(event.target);
+            })
             ligne.appendChild(cellule);
         }
         grid.appendChild(ligne);
@@ -78,3 +101,11 @@ editUsername.forEach((span) => {
 // Fonction Déclaré Temporairement
 
 generateGrid();
+
+// Commentaires 
+/*
+Fonction verification ligne présente ou non:
+    Regarde toutes les .line. Si tous les div à l'interieur ont le même symbol c'est win.
+    Sinon regarde .line[index] (chaque colonne). Si même symbole c'est win.
+    Regarde en diagonale
+*/

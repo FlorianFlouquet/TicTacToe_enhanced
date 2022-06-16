@@ -95,6 +95,13 @@ body {
     height: 120px;
     width: 120px;
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell-clicked {
+    pointer-events: none;
 }
 
 .gameboard-button-placeholder {
