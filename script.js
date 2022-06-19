@@ -1,10 +1,9 @@
 // DOM elements
 
-const gamemodeButtons = document.querySelectorAll('.gamemode-button-placeholder > button');
-const gameboardButtons = document.querySelectorAll('.gameboard-button-placeholder > button');
-const gameboard = document.querySelectorAll('.gamemode-board');
-const editUsername = document.querySelectorAll('.scoreboard > h2 > span');
-const gamemodeSelectionMenu = document.querySelector('.gamemode-selection');
+const gameboardButton = document.querySelector('.gameboard-button-placeholder > button');
+const gameboard = document.querySelector('.gamemode-board');
+const editUsername = document.querySelectorAll('.change-pseudo');
+const username = document.querySelectorAll('.username');
 const grid = document.querySelector('.grid');
 const scores = document.querySelectorAll('.scoreboard > h3');
 
@@ -16,14 +15,86 @@ let symbol = "X";
 
 // Fonctions 
 
-const cellGotClicked = (div) => {
-    div.textContent = symbol;
-    div.classList.add("cell-clicked");
-    if (symbol == "X") {
-        symbol = "O";
+/**
+ * Vide le textContent de chaque cellules de la grille de jeu.
+ * Remet la valeur de symbol à 'X'
+ * 
+ */
+const resetSettings = () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(div => {
+        div.textContent = "";
+        div.classList.remove('cell-clicked');
+    })
+    symbol = 'X';
+}
+
+/**
+ * Vérifie s'il y a une ligne d'un même symbole.
+ * Si oui renvoit true, sinon renvoit false
+ * @returns 
+ */
+const joueurAGagne = () => {
+    const lines = document.querySelectorAll('.line');
+    let cellContent = '';
+    // Vérifie les lignes
+    for (let i = 0; i < lines.length; i++) {
+        cellContent = lines[i].childNodes[0].textContent;
+        if ( cellContent != '' && cellContent == lines[i].childNodes[1].textContent && cellContent == lines[i].childNodes[2].textContent) {
+            return true;
+        }
+    }
+    // Vérifie les colonnes
+    for (let j = 0; j < lines.length; j++) {
+        cellContent = lines[0].childNodes[j].textContent;
+        if ( cellContent != '' && cellContent == lines[1].childNodes[j].textContent && cellContent == lines[2].childNodes[j].textContent ) {
+            return true;
+        }
+    }
+    // Vérifie les diagonales
+    if (lines[0].childNodes[0].textContent != '' && lines[0].childNodes[0].textContent == lines[1].childNodes[1].textContent && lines[0].childNodes[0].textContent == lines[2].childNodes[2].textContent) {
+        return true;
+    }
+    else if (lines[0].childNodes[2].textContent != '' && lines[0].childNodes[2].textContent == lines[1].childNodes[1].textContent && lines[0].childNodes[2].textContent == lines[2].childNodes[0].textContent) {
+        return true;
     }
     else {
-        symbol = "X";
+        return false;
+    }
+}
+
+/**
+ * Affiche le bon symbole dans la cellule qui a été cliqué. 
+ * @param {*} div 
+ */
+const cellGotClicked = (div) => {
+    div.textContent = symbol;
+    // Ajoute une classe à la cellule pour la rendre incliquable 
+    div.classList.add("cell-clicked");
+    const cellClicked = document.querySelectorAll('.cell-clicked');
+    
+    const result = joueurAGagne();
+    if (result) {
+        if (symbol == "X") {
+            scoreJoueur1 += 1;
+            scores[0].textContent = scoreJoueur1;
+        }
+        else {
+            scoreJoueur2 += 1;
+            scores[1].textContent = scoreJoueur2;
+        }
+        resetSettings();
+    }
+    else if (cellClicked.length == 9) {
+        resetSettings();
+    }
+    else {
+        if (symbol == "X") {
+            symbol = "O";
+        }
+        else {
+            symbol = "X";
+        }
     }
 }
 
@@ -31,16 +102,22 @@ const cellGotClicked = (div) => {
  * Permet aux utilisateurs de changer leurs pseudos
  * @param {*} span 
  */
-const changeUsername = (span) => {
+const changeUsername = (index) => {
     let newPseudo = prompt('Entrez votre pseudo');
-    span.parentNode.textContent = newPseudo;
+    username[index].textContent = newPseudo;
 }
 
 /**
  * Réinitialise les scores des joueurs
  */
-const resetScoreboard = () => {
-    console.log('reset');
+const resetScoreboardAndGrid = () => {
+    scoreJoueur1 = 0;
+    scoreJoueur2 = 0;
+
+    scores[0].textContent = scoreJoueur1;
+    scores[1].textContent = scoreJoueur2;
+
+    resetSettings();
 }
 
 /**
@@ -56,7 +133,6 @@ const generateGrid = () => {
             cellule.addEventListener('click', (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                console.log(event);
                 cellGotClicked(event.target);
             })
             ligne.appendChild(cellule);
@@ -65,35 +141,11 @@ const generateGrid = () => {
     }
 }
 
-/**
- * Cache le menu pour choisir le mode de jeu.
- * Fait apparaître le plateau de jeu qui correspond au mode de 
- * jeu choisi (défini par le paramétre 'index').
- * @param {*} index 
- */
-const initializeGame = (index) => {
-    // On cache le menu de séléction des modes de jeu
-    gamemodeSelectionMenu.style.display = "none";
-    // On fait apparaître le plateau de jeu qui correspond au mode de jeu choisi
-    gameboard[index].style.display = "flex";
-}
+gameboardButton.addEventListener('click', resetScoreboardAndGrid);
 
-// EventListeners
-
-// Pour chaque bouton dans le menu de selection des modes de jeu,
-// on lui prend son index et on lui met un eventListener qui appelle
-// la fonction initializeGame avec en paramètre l'index du bouton
-gamemodeButtons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-        initializeGame(index);
-    });
-});
-
-gameboardButtons[1].addEventListener('click', resetScoreboard);
-
-editUsername.forEach((span) => {
-    span.addEventListener('click', (event) => {
-        changeUsername(event.target);
+editUsername.forEach((span, index) => {
+    span.addEventListener('click', () => {
+        changeUsername(index);
     })
 })
 

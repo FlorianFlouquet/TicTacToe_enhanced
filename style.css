@@ -9,34 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-        /*///////////////////////////
-                GAMEMODE MENU
-        //////////////////////////*/
-
-.gamemode-selection {
-    display: none;
-    width: 500px;
-    text-align: center;
-}
-
-.gamemode-selection > h2 {
-    margin-bottom: 50px;
-    font-size: 2rem;
-}
-
-.gamemode-button-placeholder {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.gamemode-button-placeholder > button {
-    height: 60px;
-    width: 200px;
-    font-size: 1.1rem;
-    text-transform: capitalize;
+    background-color: #7219b5;
 }
 
         /*///////////////////////////
@@ -49,14 +22,17 @@ body {
 }
 
 .gameboard {
-    width: 750px;
+    width: 1000px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
 .scoreboard {
     text-align: center;
+    width: 250px;
+    font-family: 'Anton', sans-serif;
+    color: white;
 }
 
 .scoreboard > h2:hover span {
@@ -67,13 +43,18 @@ body {
     font-size: 2rem;
 }
 
-.scoreboard > h2 > span {
+.username {
+    letter-spacing: 2px;
+}
+
+.change-pseudo {
     padding-left: 10px;
-    opacity: 0.2;
+    filter: invert(1);
+    opacity: 0.4;
     transition: opacity 0.5s ease;
 }
 
-.scoreboard > h2 > span > img {
+.change-pseudo > img {
     height: 15px;
     pointer-events: none;
 }
@@ -83,8 +64,9 @@ body {
 }
 
 .grid {
-    height:360px;
-    width: 360px;
+    height: auto;
+    width: auto;
+    border: 1px solid white;
 }
 
 .line {
@@ -94,7 +76,9 @@ body {
 .cell {
     height: 120px;
     width: 120px;
-    border: 1px solid black;
+    border: 2px solid white;
+    color: white;
+    font-size: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,13 +86,31 @@ body {
 
 .cell-clicked {
     pointer-events: none;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .gameboard-button-placeholder {
     width: 40%;
     padding-top: 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+.gameboard-button-placeholder > button {
+    height: 40px;
+    width: 150px;
+    font-family: 'Varela Round', sans-serif;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: #7219b5;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+.gameboard-button-placeholder > button:hover {
+    background-color: white;
+    color: #7219b5;
 }
 
 
